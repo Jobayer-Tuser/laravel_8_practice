@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens;
-    use HasFactory;
+    use HasFactory; 
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
@@ -58,4 +58,35 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    
+    #one to one relationship
+    public function post(){
+        #when we run this by default it will serch for 'user_id' colum in post table but (see bellow example)
+        return $this->hasOne('App\Models\Post');
+        
+        #if we want/change the 'user_id' name as another like 'admin_id' then we have to give the column name as second parameter
+        #return $this>hasOne('App\Models\Post', 'admin_id');
+        
+        #if we want/change the post table 'id' then we have to give the name as third paramin in funtion 
+        #return $this>hasOne('App\Models\Post', 'admin_id', 'user_id');
+    }
+    
+    #one to many relationship
+    public function posts(){
+        
+        return $this->hasMany('App\Models\Post');
+        
+    }
+    
+    
+    #many to many relationship between user table and roles table
+    public function roles(){
+        
+        return $this->belongsToMany('App\Models\Role');
+        /*here is qoute that we are following the laravel convention to create a datatable that's  why when 
+        we are calling the upper function we dont have  to do anything manually but if we dont 
+        follow the convention then we have to use custom relation by passing the parameter like example bellow*/
+        
+        //return $this->belongsToMany('App\Models\Role', 'users_role', 'user_id', 'role_id');
+    }
 }
