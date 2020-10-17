@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-    use HasFactory;
+    //use HasFactory;
+    
+    #polymorphic relation
+    public function imageable(){
+        
+        return $this->morphTo();
+    }
 }

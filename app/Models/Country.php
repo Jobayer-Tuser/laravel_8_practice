@@ -9,6 +9,7 @@ class Country extends Model
 {
     //use HasFactory;
     
+    #polymorphic many realtion
     public function posts(){
         
         return $this->hasManyThrough('App\Models\Post', 'App\Models\User');

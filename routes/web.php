@@ -10,6 +10,8 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Country;
+use App\Models\Photo;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -300,7 +302,7 @@ Route::get('role/{id}/user', function($id){
 });
 
 
-
+#manyThrough  relationship
 Route::get('user/{id}/country', function($id){
     
     $country = Country::find($id);
@@ -312,6 +314,39 @@ Route::get('user/{id}/country', function($id){
         return $post;
     }
     
+});
+
+#polymorphic ralation 
+Route::get('/user/photos', function(){
+    
+    $post = Post::find(1);
+    
+    foreach($post->photos AS $photo){
+        
+        return $photo;
+    }
+});
+
+#polymorphic relation [reverse ]
+Route::get('/user/{$id}/post', function($id){
+    
+    $photo = Photo::findOrFail($id);
+    
+    return $photo->imageable;
+});
+
+
+Route::get('/date', function(){
+    
+    $date = new DateTime('+1 week');
+    
+    echo $date->format('Y-m-d');
+    
+    echo "<br>";
+    
+    $carbon = Carbon::now();
+    
+    echo $carbon;
 });
 ?>
 
