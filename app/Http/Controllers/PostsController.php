@@ -15,6 +15,8 @@ class PostsController extends Controller
         #$posts = Post::orderBy('title', 'desc')->take(1)->get();
         #$posts = Post::orderBy('title', 'desc')->paginate(5);
         #$posts = Post::Where('title', 'Post 2')->get();
+        
+        #$post = Post::latest(); //this is query scoper rest of query comming from post model;
         $posts = Post::all();
 
         return view('posts.index')->with('posts', $posts);

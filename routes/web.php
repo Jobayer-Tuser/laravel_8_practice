@@ -335,7 +335,7 @@ Route::get('/user/{$id}/post', function($id){
     return $photo->imageable;
 });
 
-
+#function for date 
 Route::get('/date', function(){
     
     $date = new DateTime('+1 week');
@@ -346,7 +346,33 @@ Route::get('/date', function(){
     
     $carbon = Carbon::now();
     
-    echo $carbon;
+    echo $carbon->addDays(10)->diffForHuman();
+    
+    echo '<br/>';
+    
+    echo $carbon->subMonths(5)->diffForHuman();
+    
+    echo "<br/>";
+    
+    echo $carbon->yesterday(); 
+});
+
+#route for accessor function getNameAttribute
+Route::get('/getname', function(){
+    
+    $user = User::find(1);
+
+    echo $user->name;
+});
+
+#mutators setNameAttrubute
+Route::get('/setname', function(){
+    
+    $user = User::find(2);
+    
+    $user->name = 'Rifad Ahmed';
+    
+    $user->save();
 });
 ?>
 
